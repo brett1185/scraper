@@ -12,6 +12,10 @@ BOT_NAME = 'artscraper'
 SPIDER_MODULES = ['artscraper.spiders']
 NEWSPIDER_MODULE = 'artscraper.spiders'
 
+CLOSESPIDER_PAGECOUNT=10
+FEED_URI='articles.json'
+FEED_FORMAT='json'
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'artscraper (+http://www.yourdomain.com)'
@@ -62,9 +66,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'artscraper.pipelines.ArtscraperPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'artscraper.pipelines.CheckItemPipeline': 100,
+    'artscraper.pipelines.CleanDatePipeline': 200,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
